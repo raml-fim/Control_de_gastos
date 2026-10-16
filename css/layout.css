@@ -1,0 +1,270 @@
+/* ============================================================================
+ * css/layout.css — armazón de la aplicación: menú lateral, barra y contenido
+ * ==========================================================================*/
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  background: var(--fondo);
+}
+
+/* ------------------------------------------------------------- menú lateral */
+.lateral {
+  width: var(--lateral-ancho);
+  flex: 0 0 var(--lateral-ancho);
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-900) 100%);
+  color: #DCE8F5;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 6px 8px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, .10);
+  margin-bottom: 14px;
+}
+
+.marca__logo {
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--azul), #0d5fa8);
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(30, 136, 229, .38);
+}
+
+.marca__texto { display: flex; flex-direction: column; line-height: 1.2; }
+.marca__texto b { color: #fff; font-size: .95rem; }
+.marca__texto small { color: #8FB4D6; font-size: .72rem; }
+
+.menu { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #B9CFE6;
+  font-size: .88rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transicion), color var(--transicion);
+}
+
+.menu__item .icono { width: 18px; height: 18px; flex: 0 0 18px; }
+.menu__item:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+.menu__item--activo {
+  background: linear-gradient(90deg, rgba(30, 136, 229, .30), rgba(30, 136, 229, .10));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--azul);
+}
+
+.lateral__pie { border-top: 1px solid rgba(255, 255, 255, .10); padding-top: 12px; }
+
+.usuario { display: flex; align-items: center; gap: 10px; padding: 6px 8px 10px; }
+.usuario__avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, .14);
+  color: #fff; font-size: .78rem; font-weight: 700;
+}
+.usuario__det { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.usuario__det b { color: #fff; font-size: .82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.usuario__det small { color: #8FB4D6; font-size: .7rem; }
+.lateral__acciones { padding: 0 4px; }
+
+/* ----------------------------------------------------------- área principal */
+.principal {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.barra-superior {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 26px;
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--borde);
+}
+
+.barra-superior__titulo { font-size: 1.06rem; flex: 1; }
+.barra-superior__der { display: flex; align-items: center; gap: 10px; }
+.btn-icono--menu { display: none; }
+
+.campana { position: relative; }
+.campana__badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  min-width: 17px; height: 17px;
+  border-radius: 9px;
+  background: var(--ambar);
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 700;
+  display: grid; place-items: center;
+  padding: 0 4px;
+}
+.campana__badge--critico { background: var(--rojo); }
+
+.contenido {
+  flex: 1;
+  padding: 22px 26px 44px;
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.vista { display: flex; flex-direction: column; gap: 18px; animation: aparecer 220ms ease-out; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ------------------------------------------------------------- rejillas */
+.grid { display: grid; gap: 16px; }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* -------------------------------------------------------- barra de acciones */
+.barra-acciones {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.barra-acciones__izq { display: flex; flex-direction: column; gap: 3px; }
+.barra-acciones__der { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.titulo-vista { font-size: 1.42rem; }
+.subtitulo-vista { color: var(--texto-suave); font-size: .88rem; max-width: 62ch; }
+
+/* ------------------------------------------------------- pantalla de bloqueo */
+.pin {
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(900px 500px at 15% -10%, #16456f 0%, transparent 60%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-900) 100%);
+}
+
+.pin__caja {
+  width: 100%;
+  max-width: 340px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: var(--radio-lg);
+  padding: 26px 22px 20px;
+  text-align: center;
+  box-shadow: var(--sombra-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pin__logo {
+  width: 52px; height: 52px;
+  border-radius: 15px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--azul), #0d5fa8);
+  color: #fff; font-size: 25px;
+}
+.pin__titulo { color: #fff; font-size: 1.2rem; }
+.pin__texto { color: #A8C6E2; font-size: .84rem; }
+
+.pin__puntos { display: flex; gap: 10px; margin: 6px 0 2px; }
+.pin__punto {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .45);
+  transition: background var(--transicion), transform var(--transicion);
+}
+.pin__punto--lleno { background: #fff; border-color: #fff; transform: scale(1.12); }
+
+.pin__teclado {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.pin__tecla {
+  padding: 13px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transicion), transform var(--transicion);
+}
+.pin__tecla:hover { background: rgba(255, 255, 255, .18); }
+.pin__tecla:active { transform: scale(.96); }
+.pin__tecla--accion { background: rgba(30, 136, 229, .35); }
+
+.pin__error { color: #FFB4A8; font-size: .8rem; min-height: 18px; }
+.pin__error--visible { font-weight: 600; }
+
+/* --------------------------------------------------------------- responsive */
+@media (max-width: 1200px) {
+  .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 980px) {
+  .lateral {
+    position: fixed;
+    left: 0; top: 0;
+    transform: translateX(-100%);
+    transition: transform var(--transicion);
+    box-shadow: var(--sombra-3);
+  }
+  .lateral--abierto { transform: none; }
+  .btn-icono--menu { display: grid; }
+  .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .contenido { padding: 16px 14px 40px; }
+  .barra-superior { padding: 11px 14px; gap: 9px; }
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .barra-acciones { flex-direction: column; align-items: stretch; }
+  .barra-acciones__der { justify-content: flex-start; }
+  .titulo-vista { font-size: 1.2rem; }
+  .barra-superior__titulo { font-size: .95rem; }
+}
+
+@media (max-width: 520px) {
+  .barra-superior__titulo { display: none; }
+  .barra-superior__der { gap: 7px; }
+  .barra-superior .btn--mini { padding: 8px 11px; font-size: .78rem; }
+  .contenido { padding: 12px 11px 36px; }
+}

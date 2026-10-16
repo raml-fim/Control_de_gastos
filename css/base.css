@@ -1,0 +1,107 @@
+/* ============================================================================
+ * css/base.css — variables de diseño, reinicio y elementos base
+ * ==========================================================================*/
+
+:root {
+  /* Paleta institucional del proyecto */
+  --navy: #0D2B4E;
+  --navy-900: #081f39;
+  --azul: #1E88E5;
+  --azul-600: #1573c7;
+  --azul-suave: #EAF2FC;
+  --verde: #2E9E6B;
+  --ambar: #E0A030;
+  --rojo: #D64545;
+  --morado: #7B4FB5;
+  --teal: #0F8B8D;
+
+  /* Superficies */
+  --fondo: #F4F7FB;
+  --superficie: #FFFFFF;
+  --superficie-2: #F8FAFD;
+  --borde: #DFE7F0;
+  --borde-fuerte: #C7D6E6;
+
+  /* Texto */
+  --texto: #16324F;
+  --texto-suave: #5A7290;
+  --texto-tenue: #8A9BAE;
+  --blanco: #FFFFFF;
+
+  /* Tipografía y formas */
+  --fuente: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --radio: 12px;
+  --radio-lg: 18px;
+  --radio-sm: 8px;
+  --sombra-1: 0 1px 2px rgba(13, 43, 78, .06), 0 2px 8px rgba(13, 43, 78, .06);
+  --sombra-2: 0 8px 24px rgba(13, 43, 78, .12);
+  --sombra-3: 0 18px 48px rgba(8, 31, 57, .22);
+  --transicion: 160ms cubic-bezier(.4, 0, .2, 1);
+  --lateral-ancho: 248px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--fuente);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--texto);
+  background: var(--fondo);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 { color: var(--navy); line-height: 1.25; font-weight: 700; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.05rem; }
+h3 { font-size: .95rem; }
+p { color: var(--texto); }
+small { font-size: .78rem; color: var(--texto-suave); }
+b, strong { font-weight: 700; }
+a { color: var(--azul); text-decoration: none; }
+a:hover { text-decoration: underline; }
+ul { list-style: none; }
+img, canvas, svg { display: block; max-width: 100%; }
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(30, 136, 229, .45);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Accesibilidad: texto solo para lectores de pantalla */
+.solo-lectores {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Ocultar al imprimir todo lo que no sea el reporte */
+@media print {
+  body { background: #fff; }
+  .lateral, .barra-superior, .barra-acciones, .avisos, .modal-fondo, .btn { display: none !important; }
+  .principal { margin: 0 !important; }
+  .tarjeta { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+}
+
+/* Respeto por la preferencia de movimiento reducido (RNF-08) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* Barra de desplazamiento discreta */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD8E6; border-radius: 8px; border: 2px solid var(--fondo); }
+::-webkit-scrollbar-thumb:hover { background: #AFC3D8; }

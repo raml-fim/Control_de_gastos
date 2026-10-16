@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Control de Gastos con Análisis Inteligente: registra, organiza y analiza tus ingresos y egresos personales. Proyecto del Equipo 1 para la asignatura Metodologías Ágiles de Desarrollo de Software.">
+  <meta name="author" content="Equipo 1 — Los Inges">
+  <meta name="theme-color" content="#0D2B4E">
+  <meta name="color-scheme" content="light">
+
+  <title>Control de Gastos con Análisis Inteligente</title>
+
+  <!-- Ícono vectorial en línea: no requiere archivos externos -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D2B4E'/%3E%3Cpath d='M16 40l10-12 8 8 14-18' stroke='%231E88E5' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Hojas de estilo: base → layout → componentes -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+  <!-- Contenedor principal: el armazón lo construye js/app.js -->
+  <div id="app">
+    <noscript>
+      <div style="padding:32px;max-width:640px;margin:0 auto;font-family:system-ui">
+        <h1 style="color:#0D2B4E">Control de Gastos con Análisis Inteligente</h1>
+        <p style="margin-top:12px;color:#5A7290">
+          Esta aplicación necesita JavaScript activado para funcionar: todo el registro,
+          los cálculos y el análisis se ejecutan en tu navegador.
+        </p>
+      </div>
+    </noscript>
+  </div>
+
+  <!-- Contenedor de avisos flotantes -->
+  <div id="avisos" class="avisos" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ======================================================================
+       Módulos de la aplicación. Se cargan en orden estricto porque cada uno
+       consume al anterior:
+
+       1. util        → utilidades (fechas, dinero, DOM, criptografía)
+       2. storage     → caché local (localStorage)
+       3. api         → cliente de la API del backend (SQL Server Express)
+       4. state       → estado de trabajo, colecciones y sincronización
+       5. analytics   → cálculos financieros
+       6. intelligence→ motor de análisis (alertas y recomendaciones)
+       7. security    → PIN y bloqueo por inactividad
+       8. notify      → avisos y confirmaciones
+       9. ui          → componentes y gráficas
+      10. views/*     → pantallas
+      11. app         → arranque y navegación
+       ====================================================================== -->
+  <script src="js/core/util.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/api.js"></script>
+  <script src="js/core/state.js"></script>
+  <script src="js/core/analytics.js"></script>
+  <script src="js/core/intelligence.js"></script>
+  <script src="js/core/security.js"></script>
+  <script src="js/core/notify.js"></script>
+  <script src="js/core/ui.js"></script>
+
+  <script src="js/views/dashboard.js"></script>
+  <script src="js/views/movements.js"></script>
+  <script src="js/views/budget.js"></script>
+  <script src="js/views/goals.js"></script>
+  <script src="js/views/analysis.js"></script>
+  <script src="js/views/settings.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
