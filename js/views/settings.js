@@ -45,7 +45,28 @@
         opciones: [{ valor: 'es', etiqueta: 'Español' }]
       }
     ]);
-    fPerfil.nodo.appendChild(boton('Guardar preferencias', 'btn btn--primario', function () {
+    fPerfil.nodo.classList.add('formulario--perfil');
+    var selectorTema = U.crear('label', { class: 'selector-tema' }, [
+      U.crear('input', {
+        type: 'checkbox', class: 'selector-tema__control', checked: a.tema === 'calido',
+        'aria-label': 'Usar paleta cálida', onchange: function () {
+          App.state.ajustes().tema = this.checked ? 'calido' : 'claro';
+          App.state.guardar('cambio-de-paleta');
+          App.app.aplicarTema();
+          App.notify.exito(this.checked ? 'Paleta cálida activada.' : 'Paleta fría activada.');
+        }
+      }),
+      U.crear('span', { class: 'selector-tema__pista' }),
+      U.crear('span', { class: 'selector-tema__texto', text: 'Usar paleta cálida' })
+    ]);
+    fPerfil.nodo.appendChild(U.crear('div', { class: 'selector-tema__bloque' }, [
+      U.crear('div', { class: 'selector-tema__encabezado' }, [
+        U.crear('b', { text: 'Paleta de color' }),
+        U.crear('small', { text: 'Cambia entre la paleta clara y la paleta cálida.' })
+      ]),
+      selectorTema
+    ]));
+    fPerfil.nodo.appendChild(boton('Guardar preferencias', 'btn btn--primario btn--guardar-preferencias', function () {
       var v = UI.valores(fPerfil.campos);
       var aj = App.state.ajustes();
       aj.usuario = v.usuario;

@@ -27,6 +27,7 @@
   /* --------------------------------------------------------------- arranque */
   function iniciar() {
     var resultado = App.state.cargar();
+    aplicarTema();
 
     App.security.restaurarSesion();
     construirArmazon();
@@ -60,6 +61,10 @@
     }).then(function () {
       return sincronizarConServidor(!resultado.nuevo);
     });
+  }
+
+  function aplicarTema() {
+    document.body.classList.toggle('tema-calido', App.state.ajustes().tema === 'calido');
   }
 
   /**
@@ -486,7 +491,8 @@
     pendientesInfo: pendientesInfo,
     registrarRecurrencia: registrarRecurrencia,
     rutas: RUTAS,
-    rutaActual: function () { return rutaActual; }
+    rutaActual: function () { return rutaActual; },
+    aplicarTema: aplicarTema
   };
 
   /* ------------------------------------------------------------- arranque */

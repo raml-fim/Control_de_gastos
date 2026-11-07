@@ -1,0 +1,94 @@
+/* Paletas y tokens visuales. Los componentes solo consumen estas variables. */
+:root {
+  --navy: #0D2B4E; --navy-900: #081f39; --azul: #1E88E5; --azul-600: #1573c7;
+  --azul-suave: #EAF2FC; --verde: #2E9E6B; --ambar: #E0A030; --rojo: #D64545;
+  --morado: #7B4FB5; --teal: #0F8B8D; --fondo: #F4F7FB; --superficie: #FFFFFF;
+  --superficie-2: #F8FAFD; --borde: #DFE7F0; --borde-fuerte: #C7D6E6;
+  --texto: #16324F; --texto-suave: #5A7290; --texto-tenue: #8A9BAE; --blanco: #FFFFFF;
+  --oscuro-intermedio: #113D68; --oscuro-profundo: #0B2A4A; --azul-oscuro: #0d5fa8;
+  --texto-menu: #DCE8F5; --texto-menu-2: #B9CFE6; --texto-menu-3: #8FB4D6;
+  --texto-hero: #9FC0DC; --texto-hero-2: #B9D3EA; --texto-hero-3: #A8C6E2;
+  --error-claro: #FFB4A8; --exito-oscuro: #1F7A50; --aviso-oscuro: #9A6A10;
+  --critico-oscuro: #A62B22; --neutro-oscuro: #64748B; --peligro-hover: #bd3838;
+  --superficie-aviso: #F1F7FE; --borde-aviso: #C9DFF5; --superficie-exito: #F1FBF5;
+  --borde-exito: #BFE4CE; --superficie-aviso-2: #FFF8EC; --borde-aviso-2: #F2DDB4;
+  --superficie-critico: #FDF1F0; --borde-critico: #F3C9C4; --superficie-chip: #E6F7EE;
+  --superficie-chip-aviso: #FDF3E0; --superficie-chip-critico: #FDECEA; --superficie-neutro: #EEF2F7;
+  --borde-calendario: #E3C9C6; --borde-info: #C9DDF5; --borde-scroll: #CBD8E6;
+  --borde-scroll-hover: #AFC3D8; --borde-print: #ccc; --transparente: transparent;
+  --sombra-tinta: 0 1px 2px rgba(13, 43, 78, .06), 0 2px 8px rgba(13, 43, 78, .06);
+  --sombra-tinta-fuerte: 0 8px 24px rgba(13, 43, 78, .12); --sombra-profunda: 0 18px 48px rgba(8, 31, 57, .22);
+  --sombra-acento: 0 4px 12px rgba(30, 136, 229, .28);
+  --sombra-foco: 0 0 0 3px rgba(30, 136, 229, .16);
+  --overlay: rgba(8, 31, 57, .48); --blanco-06: rgba(255, 255, 255, .06); --blanco-08: rgba(255, 255, 255, .08);
+  --blanco-09: rgba(255, 255, 255, .09); --blanco-10: rgba(255, 255, 255, .10); --blanco-12: rgba(255, 255, 255, .12);
+  --blanco-14: rgba(255, 255, 255, .14); --blanco-16: rgba(255, 255, 255, .16); --blanco-18: rgba(255, 255, 255, .18);
+  --blanco-20: rgba(255, 255, 255, .20); --blanco-22: rgba(255, 255, 255, .22); --blanco-35: rgba(255, 255, 255, .35); --blanco-45: rgba(255, 255, 255, .45); --blanco-92: rgba(255, 255, 255, .92);
+  --azul-10: rgba(30, 136, 229, .10); --azul-16: rgba(30, 136, 229, .16); --azul-28: rgba(30, 136, 229, .28); --azul-30: rgba(30, 136, 229, .30); --azul-35: rgba(30, 136, 229, .35); --azul-38: rgba(30, 136, 229, .38); --azul-45: rgba(30, 136, 229, .45);
+  --verde-18: rgba(46, 158, 107, .18); --ambar-18: rgba(224, 160, 48, .18); --rojo-18: rgba(214, 69, 69, .18);
+}
+
+body.tema-calido {
+  --azul: #C73866; --azul-600: #A92D54; --azul-suave: #FCE7ED; --navy: #971c4b; --navy-900: #821841;
+  --fondo: #FFF8F3; --superficie: #FFFFFF; --superficie-2: #FFF1E5; --borde: #F2D7CF; --borde-fuerte: #E8BEB1;
+  --texto: #49303A; --texto-suave: #795966; --texto-tenue: #9B7C85; --verde: #FD8F52; --rojo: #FE676E; --ambar: #FFBD71;
+  --superficie-aviso: #FFF1E5; --borde-aviso: #F2D0C1; --superficie-exito: #FFF0E6; --borde-exito: #F2D0C1;
+  --superficie-aviso-2: #FFF5E7; --borde-aviso-2: #F2D7A9; --superficie-critico: #FFE5E5; --borde-critico: #F2D0C1;
+  --superficie-chip: #FFF0E6; --superficie-chip-aviso: #FFF0D8; --superficie-chip-critico: #FFE5E5; --superficie-neutro: #FFF1E5;
+  --exito-oscuro: #8A4B2B; --aviso-oscuro: #8B5A22; --critico-oscuro: #A92D3B;
+  --texto-menu: #FCE7ED; --texto-menu-2: #F1CCD8; --texto-menu-3: #E9B5C5;
+  --texto-hero: #E9B5C5; --texto-hero-2: #F1CCD8; --texto-hero-3: #E9B5C5;
+   --error-claro: #FFB4A8;
+  --peligro-hover: #bd3838;
+  --borde-calendario: #E3C9C6;
+  --borde-info: #e6cbd3;
+  --borde-scroll: #e6cbd3;
+  --borde-scroll-hover: #d8afc4;
+  --borde-print: #ccc;
+  --transparente: transparent;
+
+  --sombra-tinta: 0 1px 2px rgba(78, 13, 29, 0.06), 0 2px 8px rgba(78, 13, 29, 0.06);
+  --sombra-tinta-fuerte: 0 8px 24px rgba(78, 13, 29, 0.06);
+  --sombra-profunda: 0 18px 48px rgba(78, 13, 29, 0.06);
+  --sombra-acento: 0 4px 12px rgba(151, 28, 75, .22);
+  --sombra-foco: 0 0 0 3px rgba(199, 56, 102, .18);
+  --overlay: rgba(78, 13, 29, 0.06);
+
+  --blanco-06: rgba(255, 255, 255, .06);
+  --blanco-08: rgba(255, 255, 255, .08);
+  --blanco-09: rgba(255, 255, 255, .09);
+  --blanco-10: rgba(255, 255, 255, .10);
+  --blanco-12: rgba(255, 255, 255, .12);
+  --blanco-14: rgba(255, 255, 255, .14);
+  --blanco-16: rgba(255, 255, 255, .16);
+  --blanco-18: rgba(255, 255, 255, .18);
+  --blanco-20: rgba(255, 255, 255, .20);
+  --blanco-22: rgba(255, 255, 255, .22);
+  --blanco-35: rgba(255, 255, 255, .35);
+  --blanco-45: rgba(255, 255, 255, .45);
+  --blanco-92: rgba(255, 255, 255, .92);
+
+  --azul-10: rgba(229, 86, 30, 0.1);
+  --azul-16: rgba(229, 159, 30, 0.16);
+  --azul-28: rgba(229, 113, 30, 0.28);
+  --azul-30: rgba(229, 116, 30, 0.3);
+  --azul-35: rgba(229, 176, 30, 0.35);
+  --azul-38: rgba(229, 153, 30, 0.38);
+  --azul-45: rgba(229, 149, 30, 0.45);
+
+  --verde-18: rgba(158, 46, 83, 0.18);
+  --ambar-18: rgba(224, 160, 48, .18);
+  --rojo-18: rgba(214, 69, 69, .18);
+}
+
+/* Las superficies son sólidas para mantener el diseño accesible. */
+body.tema-calido .lateral { color: var(--texto-menu); }
+body.tema-calido .menu__item { color: var(--texto-menu-2); }
+body.tema-calido .menu__item:hover, body.tema-calido .menu__item--activo { color: var(--blanco); }
+body.tema-calido .marca__texto small, body.tema-calido .usuario__det small { color: var(--texto-menu-3); }
+body.tema-calido .hero__saludo, body.tema-calido .hero__pie, body.tema-calido .mini__pie { color: var(--texto-hero); }
+body.tema-calido .hero__etiqueta, body.tema-calido .mini__etiqueta { color: var(--texto-hero-2); }
+body.tema-calido .tarjeta--aviso { background: var(--superficie-aviso); border-color: var(--borde-aviso); }
+body.tema-calido .chip--ok, body.tema-calido .estado-conexion--ok { background: var(--superficie-exito); color: var(--exito-oscuro); }
+body.tema-calido .chip--aviso, body.tema-calido .estado-conexion--offline { background: var(--superficie-aviso-2); color: var(--aviso-oscuro); }
+body.tema-calido .chip--excedido, body.tema-calido .chip--critico { background: var(--superficie-critico); color: var(--critico-oscuro); }

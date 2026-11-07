@@ -2,40 +2,15 @@
  * css/base.css — variables de diseño, reinicio y elementos base
  * ==========================================================================*/
 
-:root {
-  /* Paleta institucional del proyecto */
-  --navy: #0D2B4E;
-  --navy-900: #081f39;
-  --azul: #1E88E5;
-  --azul-600: #1573c7;
-  --azul-suave: #EAF2FC;
-  --verde: #2E9E6B;
-  --ambar: #E0A030;
-  --rojo: #D64545;
-  --morado: #7B4FB5;
-  --teal: #0F8B8D;
-
-  /* Superficies */
-  --fondo: #F4F7FB;
-  --superficie: #FFFFFF;
-  --superficie-2: #F8FAFD;
-  --borde: #DFE7F0;
-  --borde-fuerte: #C7D6E6;
-
-  /* Texto */
-  --texto: #16324F;
-  --texto-suave: #5A7290;
-  --texto-tenue: #8A9BAE;
-  --blanco: #FFFFFF;
-
+ :root {
   /* Tipografía y formas */
   --fuente: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
   --radio: 12px;
   --radio-lg: 18px;
   --radio-sm: 8px;
-  --sombra-1: 0 1px 2px rgba(13, 43, 78, .06), 0 2px 8px rgba(13, 43, 78, .06);
-  --sombra-2: 0 8px 24px rgba(13, 43, 78, .12);
-  --sombra-3: 0 18px 48px rgba(8, 31, 57, .22);
+  --sombra-1: var(--sombra-tinta);
+  --sombra-2: var(--sombra-tinta-fuerte);
+  --sombra-3: var(--sombra-profunda);
   --transicion: 160ms cubic-bezier(.4, 0, .2, 1);
   --lateral-ancho: 248px;
 }
@@ -73,7 +48,7 @@ button, input, select, textarea {
 }
 
 :focus-visible {
-  outline: 3px solid rgba(30, 136, 229, .45);
+  outline: 3px solid var(--azul-45);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -86,10 +61,10 @@ button, input, select, textarea {
 
 /* Ocultar al imprimir todo lo que no sea el reporte */
 @media print {
-  body { background: #fff; }
+  body { background: var(--blanco); }
   .lateral, .barra-superior, .barra-acciones, .avisos, .modal-fondo, .btn { display: none !important; }
   .principal { margin: 0 !important; }
-  .tarjeta { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  .tarjeta { box-shadow: none; border: 1px solid var(--borde-print); break-inside: avoid; }
 }
 
 /* Respeto por la preferencia de movimiento reducido (RNF-08) */
@@ -103,5 +78,5 @@ button, input, select, textarea {
 /* Barra de desplazamiento discreta */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD8E6; border-radius: 8px; border: 2px solid var(--fondo); }
-::-webkit-scrollbar-thumb:hover { background: #AFC3D8; }
+::-webkit-scrollbar-thumb { background: var(--borde-scroll); border-radius: 8px; border: 2px solid var(--fondo); }
+::-webkit-scrollbar-thumb:hover { background: var(--borde-scroll-hover); }

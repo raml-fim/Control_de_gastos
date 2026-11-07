@@ -11,6 +11,7 @@
   var App = global.App = global.App || {};
   var U = App.util;
   var UI = App.ui;
+  var A = App.analytics;
 
   var filtros = {
     texto: '', tipo: 'todos', categoriaId: 'todas', cuentaId: 'todas',
@@ -112,6 +113,7 @@
       chipPeriodo('Últimos 3 meses', null, 3),
       chipPeriodo('Todo el historial', null, 0)
     ]));
+    filtroNodo.appendChild(filtrosRapidos());
     vista.appendChild(filtroNodo);
 
     // Los filtros se aplican al escribir o cambiar (RF-12)
@@ -148,6 +150,43 @@
         } else {
           filtros.periodo = ''; filtros.desde = ''; filtros.hasta = '';
         }
+        pagina = 1;
+        montar(document.getElementById('contenido'));
+      }
+    });
+  }
+
+  function filtrosRapidos() {
+    var contenedor = U.crear('details', { class: 'filtros-rapidos' });
+    contenedor.appendChild(U.crear('summary', { class: 'filtros-rapidos__titulo', text: 'Filtrar rápido' }));
+    var opciones = U.crear('div', { class: 'filtros-rapidos__opciones' });
+
+    var tipos = U.crear('div', { class: 'chips-filtro chips-filtro--rapidos' });
+    tipos.appendChild(chipRapido('Todos', 'tipo', 'todos'));
+    tipos.appendChild(chipRapido('Ingresos', 'tipo', 'ingreso'));
+    tipos.appendChild(chipRapido('Gastos', 'tipo', 'gasto'));
+    opciones.appendChild(tipos);
+
+    var categorias = App.state.categorias().filter(function (c) { return !c.oculta; });
+    if (categorias.length) {
+      var porCategoria = U.crear('div', { class: 'chips-filtro chips-filtro--rapidos' });
+      porCategoria.appendChild(chipRapido('Todas las categorías', 'categoriaId', 'todas'));
+      categorias.forEach(function (c) {
+        porCategoria.appendChild(chipRapido(c.nombre, 'categoriaId', c.id));
+      });
+      opciones.appendChild(porCategoria);
+    }
+    contenedor.appendChild(opciones);
+    return contenedor;
+  }
+
+  function chipRapido(etiqueta, campo, valor) {
+    var activo = filtros[campo] === valor;
+    return U.crear('button', {
+      class: 'chip chip--boton' + (activo ? ' chip--activo' : ''),
+      type: 'button', text: etiqueta,
+      onclick: function () {
+        filtros[campo] = valor;
         pagina = 1;
         montar(document.getElementById('contenido'));
       }
@@ -232,11 +271,13 @@
         })
       ]));
       tr.appendChild(U.crear('td', { class: 'acciones-celda' }, [
-        botonIcono('editar', 'Editar', function () { abrirFormulario(m.tipo, m); }),
-        botonIcono('borrar', 'Eliminar', function () { eliminar(m); }),
-        botonIcono('copiar', 'Duplicar', function () {
-          abrirFormulario(m.tipo, Object.assign({}, m, { id: null, fecha: U.hoyISO(), descripcion: m.descripcion }));
-        })
+        U.crear('div', { class: 'acciones-celda__grupo' }, [
+          botonIcono('editar', 'Editar', function () { abrirFormulario(m.tipo, m); }),
+          botonIcono('borrar', 'Eliminar', function () { eliminar(m); }),
+          botonIcono('copiar', 'Duplicar', function () {
+            abrirFormulario(m.tipo, Object.assign({}, m, { id: null, fecha: U.hoyISO(), descripcion: m.descripcion }));
+          })
+        ])
       ]));
       tbody.appendChild(tr);
     });
@@ -262,7 +303,27 @@
   }
 
   function A_ordenar(lista) {
-    return U.ordenar(lista, orden.campo === 'categoriaId' ? 'categoriaId' : orden.campo, orden.desc);
+    var copia = lista.slice();
+    copia.sort(function (a, b) {
+      var cmp;
+      if (orden.campo === 'fecha') {
+        // Las fechas del formulario son YYYY-MM-DD; compararlas como fechas
+        // evita depender de la coerción lexicográfica del comparador genérico.
+        var fechaA = Date.parse(String(a.fecha || '') + 'T00:00:00');
+        var fechaB = Date.parse(String(b.fecha || '') + 'T00:00:00');
+        cmp = (isNaN(fechaA) ? 0 : fechaA) - (isNaN(fechaB) ? 0 : fechaB);
+      } else {
+        var valorA = a[orden.campo];
+        var valorB = b[orden.campo];
+        if (valorA === valorB) { cmp = 0; }
+        else if (valorA === undefined || valorA === null) { cmp = 1; }
+        else if (valorB === undefined || valorB === null) { cmp = -1; }
+        else { cmp = valorA > valorB ? 1 : -1; }
+      }
+      if (cmp === 0) { cmp = String(a.id || '').localeCompare(String(b.id || '')); }
+      return orden.desc ? -cmp : cmp;
+    });
+    return copia;
   }
 
   function boton(texto, clase, fn, iconoNodo) {
@@ -387,6 +448,8 @@
         cuentaId: v.cuentaId,
         descripcion: String(v.descripcion || '').trim() || (v.tipo === 'ingreso' ? 'Ingreso' : 'Gasto')
       };
+      var mostrarAlertaPresupuesto = false;
+      var excesoPresupuesto = 0;
 
       if (esEdicion) {
         App.movimientos.actualizar(existente.id, datos);
@@ -405,9 +468,30 @@
           App.notify.info('Se programó como movimiento recurrente ' + v.frecuencia + '.');
         }
         App.notify.exito('Movimiento registrado. El saldo se actualizó.');
+        var globalDespues = A.estadoPresupuestos(datos.periodo).global;
+        if (datos.tipo === 'gasto' && globalDespues.estado === 'excedido') {
+          mostrarAlertaPresupuesto = true;
+          excesoPresupuesto = Math.abs(globalDespues.disponible);
+        }
       }
       m.cerrar();
       App.app.refrescar();
+      if (mostrarAlertaPresupuesto) {
+        var aviso = U.crear('div', { class: 'presupuesto-alerta-modal' }, [
+          U.crear('div', { class: 'presupuesto-alerta-modal__icono', text: '⚠' }),
+          U.crear('h3', { text: 'Presupuesto global superado' }),
+          U.crear('p', { text: 'Este movimiento dejó tu gasto mensual por encima del límite establecido.' }),
+          U.crear('strong', { text: 'Exceso actual: ' + U.moneda(excesoPresupuesto) })
+        ]);
+        var alerta = UI.modal({
+          titulo: 'Alerta de presupuesto',
+          contenido: aviso,
+          acciones: [U.crear('button', {
+            class: 'btn btn--primario', type: 'button', text: 'Entendido',
+            onclick: function () { alerta.cerrar(); }
+          })]
+        });
+      }
     }
   }
 

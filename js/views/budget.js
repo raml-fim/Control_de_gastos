@@ -73,6 +73,15 @@
       ]),
       g.limite ? UI.barraProgreso(g.consumo, colorEstado(g.estado)) : null
     ]));
+    if (g.estado === 'excedido') {
+      tarjetaGlobal.appendChild(U.crear('div', { class: 'alerta alerta--critico presupuesto-global__alerta' }, [
+        U.crear('span', { class: 'alerta__icono', text: '⚠' }),
+        U.crear('div', { class: 'alerta__cuerpo' }, [
+          U.crear('b', { text: 'Límite global superado' }),
+          U.crear('p', { text: 'Has excedido el presupuesto mensual por ' + U.moneda(Math.abs(g.disponible)) + '.' })
+        ])
+      ]));
+    }
     vista.appendChild(tarjetaGlobal);
 
     /* ---------------------------------------------- límites por categoría */
